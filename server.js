@@ -22,3 +22,14 @@ app.use(express.static('website'));
 const port = 8000;
 const server = app.listen(port,()=>{console.log("server is running");
                                     console.log(`localhost: ${port}`);});
+//Routes
+
+//a GET route that returns the projectData object 
+app.get('/',function(req,res){
+    res.send(projectData);
+})
+
+//a POST route that adds incoming data to projectData
+app.post('/',function(req,res){
+    projectData.push({temperature:req.body.temperature,date:req.body.date,userResponse:req.body.userResponse});
+})
