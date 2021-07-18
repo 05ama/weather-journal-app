@@ -26,15 +26,15 @@ const server = app.listen(port,()=>{console.log("server is running");
 
 //a GET route that returns the projectData object 
 app.get('/all',function(req,res){
-    console.log("server get");
+    console.log("Data requested from server");
     res.send(projectData);
 })
 
 //a POST route that adds incoming data to projectData
 app.post('/add',function(req,res){
-    console.log("server");
+    console.log("Data posted to server");
     projectData.temperature = req.body.temperature;
     projectData.date = req.body.date;
     projectData.userResponse = req.body.userResponse;
-    console.log(projectData);
+    res.send(projectData);
 })

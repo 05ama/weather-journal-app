@@ -20,26 +20,34 @@ function performAction(e){
 
 const getWeather = async (weatherUrlZip, zip, apiKey)=>{
     const url = weatherUrlZip+zip+apiKey;
-    fetch(url)
-    .then((response) => response.json())
-    .then((data)=> {
+    let weatherResponse = await fetch(url);
+    try{
+        weatherData = await weatherResponse.json();
         let feelings = document.getElementById('feelings').value;
-        postData('/add',{temperature:data.main.temp,
-                         date:newDate,
-                         userResponse:feelings});
-    }).then(()=>{
-        fetch('/all').then((res)=>res.json())
-        .then((data)=>{console.log(data);})
-    })
-    .catch(error =>{console.log("error", error);});
+        let postDataResponse = await postData('/add',{
+                        temperature:weatherData.main.temp,
+                        date:newDate,
+                        userResponse:feelings});
+        let serverDataResponse = await fetch('/all');
+        let serverData = await serverDataResponse.json();
+        console.log(serverData);
+    }catch(error){
+        console.log("error", error);
+    }
   }
 
-const postData = async ( path='' , data ={})=>{
-    fetch(path,{
-        method:'POST',
-        credentials: 'same-origin',
-        headers: {
-                    'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)}).catch(error =>{console.log("error", error);});
+const postData = async (url= '', data = {})=>{
+    const response = await fetch(url,{
+                method:'POST',
+                credentials: 'same-origin',
+                headers: {
+                            'Content-Type': 'application/json',
+                        },
+                body: JSON.stringify(data)})
+    try{
+        await response.json();
+        console.log("Data Posted");       
+    }catch(error) {
+        console.log("error", error);
+    }
 }
