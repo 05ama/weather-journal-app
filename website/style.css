@@ -5,7 +5,7 @@ body{
 
 #app{
     display: grid;
-    grid-auto-rows: minmax(150px, auto);
+    grid-auto-rows: minmax(150px,auto);
     /* grid-template-columns:  */
     height:100vh;
     background: #f23557;
@@ -14,6 +14,7 @@ body{
     grid-gap: 1em;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
+    
 }
 
 .holder{
@@ -22,29 +23,30 @@ body{
 
 .entry{
     background: rgba(59, 74, 107, .4);
+    display : none;
 }
 
 #entryHolder{
 
 }
 
-#date{
-
+#date:hover{
+    color: blue;
 }
 
-#temp{
-
+#temp:hover{
+    color: blue;
 }
 
-#content{
-
+#content:hover{
+    color: blue;
 }
 
 .headline {
-
+    font-size: 50px;
 }
-.title{
-
+.title:hover{
+    color: black;
 }
 
 /*  Basic Styling To Override Default For Basic HTML Elements */

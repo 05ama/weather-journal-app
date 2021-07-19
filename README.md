@@ -1,10 +1,32 @@
 # Weather-Journal App Project
 
-## Overview
-This project requires you to create an asynchronous web app that uses Web API and user data to dynamically update the UI. 
+## Table of Contents
 
-## Instructions
-This will require modifying the `server.js` file and the `website/app.js` file. You can see `index.html` for element references, and once you are finished with the project steps, you can use `style.css` to style your application to customized perfection.
+* [Introduction](#introduction)
+* [File_manifest](#File_manifest)
+* [Refrences](#Refrences)
+* [Authors](#Authors)
 
-## Extras
-If you are interested in testing your code as you go, you can use `tests.js` as a template for writing and running some basic tests for your code.
+## Introduction
+
+JavaScript file `website\app.js` is adding dynamic behavior for a static HTML page `website\index.html`.
+The script will add a navigation menu which provide scroll to specific section option, also recognizing
+the current viewed section and differentiate it from other sections.
+
+## File_manifest
+
+Project files:
+    1- website\index.html
+    2- website\app.js
+    3- website\styles.css
+    4- server.js
+
+## Refrences
+
+- https://www.w3schools.com/js/default.asp
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript
+- https://stackoverflow.com/
+
+## Authors
+
+- `server.js , website\app.js`: Osama Mohsen <AusamaMohsen@gmail.com>
