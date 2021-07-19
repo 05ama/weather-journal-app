@@ -28,15 +28,14 @@ const getWeather = async (weatherUrlZip, zip, apiKey)=>{
                         temperature:weatherData.main.temp,
                         date:newDate,
                         userResponse:feelings});
-        let serverDataResponse = await fetch('/all');
-        let serverData = await serverDataResponse.json();
-        console.log(serverData);
+        await updateUi();
     }catch(error){
         console.log("error", error);
     }
   }
 
 const postData = async (url= '', data = {})=>{
+    console.log(JSON.stringify(data));
     const response = await fetch(url,{
                 method:'POST',
                 credentials: 'same-origin',
@@ -50,4 +49,15 @@ const postData = async (url= '', data = {})=>{
     }catch(error) {
         console.log("error", error);
     }
+}
+
+const updateUi = async ()=>{
+    let serverDataResponse = await fetch('/all');
+    let serverData = await serverDataResponse.json(); 
+    document.getElementById('date').innerHTML = `<p>Date: ${serverData.date}</p>`;
+    document.getElementById('temp').innerHTML = `<p>Temperature: ${serverData.temperature}</p>`;
+    document.getElementById('content').innerHTML = `<p>${serverData.userResponse.replace(/\r\n|\n|\r/gm, '<br />')}</p>`;
+    //document.querySelectorAll('.holder').forEach(element => {element.style.display = "none";});
+    //document.getElementsByClassName("holder entry")[0].style.display = "block";
+    console.log(serverData); 
 }
