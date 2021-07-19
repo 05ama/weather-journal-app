@@ -6,9 +6,9 @@ const E1 = "Server data saving error";      // Error message for data saving to 
 const E2 = "Server data recovery error";    // Error message for data fetching from server issue
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let newDate = (d.getMonth()+1)+'/'+ d.getDate()+'/'+ d.getFullYear();
 // API key
-let apiKey ='&appid=648db84b18934d5b7e80f2375c86893a';
+const apiKey ='&appid=648db84b18934d5b7e80f2375c86893a&units=metric'; //In Celcius
 // Base URL
 let weatherUrlZip = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 
@@ -87,7 +87,7 @@ const uiUpdate = async ()=>{
     try{                                                                // try/catch errors
         serverData = await serverDataResponse.json();                   // wait for response parsing
         document.getElementById('date').innerHTML = `<p>Date: ${serverData.date}</p>`;                   // update date
-        document.getElementById('temp').innerHTML = `<p>Temperature: ${serverData.temperature}</p>`;     // update temprature
+        document.getElementById('temp').innerHTML = `<p>Temperature: ${serverData.temperature} &#8451</p>`;     // update temprature in celcius
         document.getElementById('content').innerHTML = `<p>${serverData.userResponse.replace(/\r\n|\n|\r/gm, '<br />')}</p>`; // update user content with the same format
         document.getElementsByClassName("holder entry")[0].style.display ="inline-block";               // display holder entery div
         document.getElementById('app').style.height = "auto";                                           // update window height
@@ -111,7 +111,7 @@ const uiErrorUpdate = async( errorStage = "")=>{
         case E2:   // Error is in GET data request from the server, don't request again and display the latest current saved data
             if (Object.keys(serverData).length > 0){        // check is there any saved data
                 document.getElementById('date').innerHTML = `<p>Date: ${serverData.date}</p>`;                   // update date
-                document.getElementById('temp').innerHTML = `<p>Temperature: ${serverData.temperature}</p>`;     // update temprature
+                document.getElementById('temp').innerHTML = `<p>Temperature: ${serverData.temperature} &#8451</p>`;     // update temprature in celcius
                 document.getElementById('content').innerHTML = `<p>${serverData.userResponse.replace(/\r\n|\n|\r/gm, '<br />')}</p>`; // update user content with the same format    
                 document.getElementsByClassName("holder entry")[0].style.display ="inline-block";               // display holder entery div
                 document.getElementById('app').style.height = "auto";                                           // update window height
@@ -129,7 +129,7 @@ const uiErrorUpdate = async( errorStage = "")=>{
             try{
                 serverData = await serverDataResponse.json();  
                 document.getElementById('date').innerHTML = `<p>Date: ${serverData.date}</p>`;                   // update date
-                document.getElementById('temp').innerHTML = `<p>Temperature: ${serverData.temperature}</p>`;     // update temprature
+                document.getElementById('temp').innerHTML = `<p>Temperature: ${serverData.temperature} &#8451</p>`;     // update temprature celcius
                 document.getElementById('content').innerHTML = `<p>${serverData.userResponse.replace(/\r\n|\n|\r/gm, '<br />')}</p>`; // update user content with the same format    
                 document.getElementsByClassName("holder entry")[0].style.display ="inline-block";                // display holder entery div
                 document.getElementById('app').style.height = "auto";                                            // update window height
