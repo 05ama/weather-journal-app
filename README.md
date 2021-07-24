@@ -10,8 +10,7 @@
 ## Introduction
 
 JavaScript file `website\app.js` is adding dynamic behavior for a static HTML page `website\index.html`.
-The script will add a navigation menu which provide scroll to specific section option, also recognizing
-the current viewed section and differentiate it from other sections.
+The script will intiate a requets to openweathermap.org to get the temp of the releated ZIP code entered by the user, after recieving the values the server will save this data along with the text added by the user, the saved data will be displayed on the page as the most recent inputs. any error in the previous sequence will result in a defined Error message.
 
 ## File_manifest
 
