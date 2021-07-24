@@ -46,7 +46,7 @@ const getWeather = async (weatherUrlZip, zip, apiKey)=>{
         await uiUpdate();                                           // update the html page
     }catch(error){
         alert(E0);                                                  // alert error
-        uiErrorUpdate();                                            // update html page according to the default error case
+        uiErrorUpdate(E0);                                          // update html page according to the default error case
         console.log("Weather response parsing error");              // console log for debug
         console.log("error", error);                                // log any errors
     }
@@ -108,6 +108,26 @@ const uiUpdate = async ()=>{
  */
 const uiErrorUpdate = async( errorStage = "")=>{  
     switch (errorStage){
+        case E0:
+        {
+            let serverDataResponse = await fetch('/all');                 // Error in any other step except E2
+            try{
+                serverData = await serverDataResponse.json();  
+                document.getElementById('date').innerHTML = `<p>Date: ${serverData.date}</p>`;                   // update date
+                document.getElementById('temp').innerHTML = `<p>Temperature: ${serverData.temperature} &#8451</p>`;     // update temprature celcius
+                document.getElementById('content').innerHTML = `<p>${serverData.userResponse.replace(/\r\n|\n|\r/gm, '<br />')}</p>`; // update user content with the same format    
+                document.getElementsByClassName("holder entry")[0].style.display ="inline-block";                // display holder entery div
+                document.getElementById('app').style.height = "auto";                                            // update window height
+            }catch{
+                document.getElementById('date').innerHTML = "";
+                document.getElementById('date').innerText = E0;
+                document.getElementById('temp').innerHTML = ""
+                document.getElementById('content').innerHTML = ""  
+                document.getElementsByClassName("holder entry")[0].style.display ="inline-block";               // display holder entery div
+                document.getElementById('app').style.height = "auto";                                           // update window height
+            }   
+        }         
+        break;
         case E2:   // Error is in GET data request from the server, don't request again and display the latest current saved data
             if (Object.keys(serverData).length > 0){        // check is there any saved data
                 document.getElementById('date').innerHTML = `<p>Date: ${serverData.date}</p>`;                   // update date
@@ -115,7 +135,6 @@ const uiErrorUpdate = async( errorStage = "")=>{
                 document.getElementById('content').innerHTML = `<p>${serverData.userResponse.replace(/\r\n|\n|\r/gm, '<br />')}</p>`; // update user content with the same format    
                 document.getElementsByClassName("holder entry")[0].style.display ="inline-block";               // display holder entery div
                 document.getElementById('app').style.height = "auto";                                           // update window height
-                break;
             }else{
                 document.getElementById('date').innerHTML = "";
                 document.getElementById('date').innerText = E2;
@@ -124,7 +143,9 @@ const uiErrorUpdate = async( errorStage = "")=>{
                 document.getElementsByClassName("holder entry")[0].style.display ="inline-block";               // display holder entery div
                 document.getElementById('app').style.height = "auto";                                           // update window height
             }
+            break;
         default:    
+        {
             let serverDataResponse = await fetch('/all');                 // Error in any other step except E2
             try{
                 serverData = await serverDataResponse.json();  
@@ -139,6 +160,7 @@ const uiErrorUpdate = async( errorStage = "")=>{
                 console.log("Server GET data parsing error");               // console log for debug
                 console.log("error", error);                                // log any errors
             }
+        }
         break;
     } 
 }
